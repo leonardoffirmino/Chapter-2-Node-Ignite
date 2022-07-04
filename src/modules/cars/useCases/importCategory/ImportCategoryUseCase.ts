@@ -1,6 +1,6 @@
-import { parse as csvParse } from 'csv-parse';
-
 import fs from "fs";
+import { parse } from 'csv-parse';
+
 import { inject, injectable } from 'tsyringe';
 import { ICategoriesRepository } from '../../repositories/ICategoriesRepository';
 
@@ -22,7 +22,7 @@ class ImportCategoryUseCase {
 
       const categories: IImportCategory[] = [];
 
-      const parseFile = csvParse();
+      const parseFile = parse();
 
 
       stream.pipe(parseFile);
@@ -51,7 +51,7 @@ class ImportCategoryUseCase {
     const categories = await this.loadCategories(file);
 
 
-    categories.map(async category => {
+    categories.map(async (category) => {
       const { name, description } = category;
 
       const existCategory = await this.categoriesRepository.findByName(name);
@@ -60,9 +60,9 @@ class ImportCategoryUseCase {
         await this.categoriesRepository.create({
           name,
           description,
-        })
+        });
       }
-    })
+    });
 
   }
 }
