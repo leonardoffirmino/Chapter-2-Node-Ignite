@@ -28,7 +28,7 @@ export class CreateUsers1657669222881 implements MigrationInterface {
                     type: "varchar"
                 },
                 {
-                    name: "drive_license",
+                    name: "driver_license",
                     type: "varchar"
                 },
                 {
