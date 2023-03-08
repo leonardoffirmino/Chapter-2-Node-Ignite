@@ -1,5 +1,5 @@
 import { describe, it } from "@jest/globals"
-import { AppError } from "@errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { UsersRepositoryInMemory } from "@modules/accounts/repositories/in-memory/UsersRepositoryInMemory";
 import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase"
