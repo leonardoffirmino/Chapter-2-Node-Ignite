@@ -5,6 +5,7 @@ import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 
 
 class CarsRepositoryInMemory implements ICarsRepository {
+
   cars: Car[] = [];
 
   async create({ brand, category_id, daily_rate, fine_amount, name, description, license_plate }: ICreateCarDTO): Promise<void> {
@@ -21,6 +22,11 @@ class CarsRepositoryInMemory implements ICarsRepository {
     });
 
     this.cars.push(car);
+  }
+
+
+  async findByLicensePlate(license_plate: string): Promise<Car> {
+    return this.cars.find(car => car.license_plate === license_plate);
   }
 
 }

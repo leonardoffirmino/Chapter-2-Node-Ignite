@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { ICarsRepository } from "../repositories/ICarsRepository";
+import { AppError } from "@shared/errors/AppError";
 
 
 interface IRequest {
@@ -13,12 +14,12 @@ interface IRequest {
 
 }
 
-@injectable()
+//@injectable()
 class CreateCarUseCase {
 
 
   constructor(
-    @inject("CarsRepository")
+    //@inject("CarsRepository")
     private carsRepository: ICarsRepository
   ) { }
 
@@ -27,7 +28,13 @@ class CreateCarUseCase {
   async execute({ name, description, daily_rate, license_plate, fine_amount, brand, category_id }: IRequest): Promise<void> {
 
 
-    this.carsRepository.create({
+    const carAlreadyExists = await this.carsRepository.findByLicensePlate(license_plate);
+
+    if (carAlreadyExists) {
+      throw new AppError("Car already exists!");
+    }
+
+    await this.carsRepository.create({
       name,
       description,
       daily_rate,
