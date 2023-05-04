@@ -1,4 +1,3 @@
-import query from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 import { hash } from "bcryptjs";
 
@@ -16,7 +15,7 @@ async function create() {
   const password = await hash("admin", 8);
 
 
-  await (await connection).query(
+  (await connection).query(
     `INSERT INTO USERS(id,name,email,password,"isAdmin",created_at,driver_license)
       values('${id}','admin','admin@rentx.com.br', '${password}',true,'now()', 'XXXX-XXX')`
   )
