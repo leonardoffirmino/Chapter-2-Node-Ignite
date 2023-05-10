@@ -6,6 +6,7 @@ import { Car } from "@modules/cars/infra/typeorm/entities/Car";
 
 class CarsRepositoryInMemory implements ICarsRepository {
 
+
   cars: Car[] = [];
 
   async create({ brand, category_id, daily_rate, fine_amount, name, description, license_plate }: ICreateCarDTO): Promise<Car> {
@@ -31,6 +32,23 @@ class CarsRepositoryInMemory implements ICarsRepository {
     return this.cars.find(car => car.license_plate === license_plate);
   }
 
+
+  async findAvailable(brand?: string, name?: string, category_id?: string): Promise<Car[]> {
+    const all = this.cars
+      .filter((car) => {
+        if (
+          car.available === true &&
+          ((brand && car.brand === brand) ||
+            (category_id && car.category_id === category_id) ||
+            (name && car.name === name))
+        ) {
+          return car;
+        }
+        return null;
+      });
+
+    return all;
+  }
 }
 
 
