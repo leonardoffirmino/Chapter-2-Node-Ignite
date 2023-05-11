@@ -37,10 +37,10 @@ class CarsRepositoryInMemory implements ICarsRepository {
     const all = this.cars
       .filter((car) => {
         if (
-          car.available === true &&
-          ((brand && car.brand === brand) ||
-            (category_id && car.category_id === category_id) ||
-            (name && car.name === name))
+          car.available === true ||
+          (brand && car.brand === brand) ||
+          (category_id && car.category_id === category_id) ||
+          (name && car.name === name)
         ) {
           return car;
         }
