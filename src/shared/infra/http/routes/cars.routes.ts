@@ -1,4 +1,4 @@
-import { CreateCarController } from "@modules/cars/createCar/CreateCarController";
+import { CreateCarController } from "@modules/cars/useCases/createCar/CreateCarController";
 import { Router } from "express";
 import { ensureAuthenticate } from "../middlewares/ensureAuthenticate";
 import { ensureAdmin } from "../middlewares/ensureAdmin";
