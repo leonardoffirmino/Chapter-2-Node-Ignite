@@ -11,6 +11,7 @@ interface ICreateCarDTO {
   brand: string;
   category_id: string;
   specifications?: Specification[];
+  id?: string;
 }
 
 
