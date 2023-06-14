@@ -13,6 +13,10 @@ class UploadCarImagesController {
 
     const images = request.files as IFiles[];
 
+    console.log({
+      images,
+      id
+    })
 
     const uploadCarImagesUseCase = container.resolve(UploadCarImagesUseCase);
 

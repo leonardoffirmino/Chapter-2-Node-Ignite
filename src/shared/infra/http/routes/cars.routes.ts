@@ -30,7 +30,7 @@ carsRoutes.get("/available", listAvailableCarsController.handle);
 
 carsRoutes.post("/specifications/:id", ensureAuthenticate, ensureAdmin, createCarSpecificationController.handle);
 
-carsRoutes.post("/images", ensureAuthenticate, ensureAdmin, upload.array("images"), uploadCarImagesController.handle);
+carsRoutes.post("/images/:id", ensureAuthenticate, ensureAdmin, upload.array("images"), uploadCarImagesController.handle);
 
 
 export { carsRoutes };
