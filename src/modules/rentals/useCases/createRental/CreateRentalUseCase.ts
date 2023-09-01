@@ -1,4 +1,5 @@
 import { IRentalsRepositorys } from "@modules/rentals/repositories/IRentalRepository";
+import { Rental } from "@modules/rentals/typeorm/entities/Rental";
 import { AppError } from "@shared/errors/AppError";
 
 
@@ -21,7 +22,7 @@ class CreateRentalUseCase {
     car_id,
     expected_return_date,
     user_id
-  }: IRequest): Promise<void> {
+  }: IRequest): Promise<Rental> {
 
     const carUnAvailable = await this.rentalsRepositorys.findOpenRentalByCar(car_id);
 
@@ -39,7 +40,13 @@ class CreateRentalUseCase {
     }
 
 
+    const rental = await this.rentalsRepositorys.create({
+      user_id,
+      car_id,
+      expected_return_date
+    });
 
+    return rental;
 
   }
 }
