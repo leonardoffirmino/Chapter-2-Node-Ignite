@@ -1,13 +1,10 @@
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
 
 import { IRentalsRepositorys } from "@modules/rentals/repositories/IRentalRepository";
 import { Rental } from "@modules/rentals/typeorm/entities/Rental";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
 
 
-
-dayjs.extend(utc);
 
 
 interface IRequest {
@@ -21,7 +18,8 @@ interface IRequest {
 class CreateRentalUseCase {
 
   constructor(
-    private rentalsRepositorys: IRentalsRepositorys
+    private rentalsRepositorys: IRentalsRepositorys,
+    private dateProvider: IDateProvider
   ) { }
 
 
@@ -49,13 +47,12 @@ class CreateRentalUseCase {
     };
 
 
+    const dateNow = this.dateProvider.dateNow();
 
-    const expectedReturnDateFormat = dayjs(expected_return_date).utc().local().format();
-
-    const dateNow = dayjs().utc().local().format();
-
-
-    const compare = dayjs(expectedReturnDateFormat).diff(dateNow, "hours");
+    const compare = this.dateProvider.compareInHours(
+      dateNow,
+      expected_return_date
+    );
 
     if (compare < minimumHour) {
       throw new AppError("Invalid return time!");
