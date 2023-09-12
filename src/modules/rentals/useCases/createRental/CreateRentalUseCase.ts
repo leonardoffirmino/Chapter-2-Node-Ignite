@@ -3,6 +3,7 @@ import { IRentalsRepositorys } from "@modules/rentals/repositories/IRentalReposi
 import { Rental } from "@modules/rentals/typeorm/entities/Rental";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
+import { inject, injectable } from "tsyringe";
 
 
 
@@ -14,11 +15,13 @@ interface IRequest {
 }
 
 
-
+@injectable()
 class CreateRentalUseCase {
 
   constructor(
+    @inject("RentalsRepository")
     private rentalsRepositorys: IRentalsRepositorys,
+    @inject("DayjsDateProvider")
     private dateProvider: IDateProvider
   ) { }
 
