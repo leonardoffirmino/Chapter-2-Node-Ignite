@@ -1,5 +1,5 @@
 
-import { IRentalsRepositorys } from "@modules/rentals/repositories/IRentalRepository";
+import { IRentalsRepository } from "@modules/rentals/repositories/IRentalRepository";
 import { Rental } from "@modules/rentals/typeorm/entities/Rental";
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
@@ -20,7 +20,7 @@ class CreateRentalUseCase {
 
   constructor(
     @inject("RentalsRepository")
-    private rentalsRepositorys: IRentalsRepositorys,
+    private rentalsRepository: IRentalsRepository,
     @inject("DayjsDateProvider")
     private dateProvider: IDateProvider
   ) { }
@@ -34,7 +34,7 @@ class CreateRentalUseCase {
 
     const minimumHour = 24;
 
-    const carUnAvailable = await this.rentalsRepositorys.findOpenRentalByCar(car_id);
+    const carUnAvailable = await this.rentalsRepository.findOpenRentalByCar(car_id);
 
 
     if (carUnAvailable) {
@@ -42,7 +42,7 @@ class CreateRentalUseCase {
     }
 
 
-    const rentalOpenToUser = await this.rentalsRepositorys.findOpenRentalByUser(user_id);
+    const rentalOpenToUser = await this.rentalsRepository.findOpenRentalByUser(user_id);
 
 
     if (rentalOpenToUser) {
@@ -62,7 +62,7 @@ class CreateRentalUseCase {
     }
 
 
-    const rental = await this.rentalsRepositorys.create({
+    const rental = await this.rentalsRepository.create({
       user_id,
       car_id,
       expected_return_date

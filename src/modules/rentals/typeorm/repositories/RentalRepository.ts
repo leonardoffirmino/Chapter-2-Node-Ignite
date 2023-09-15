@@ -1,11 +1,11 @@
 import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
-import { IRentalsRepositorys } from "@modules/rentals/repositories/IRentalRepository";
+import { IRentalsRepository } from "@modules/rentals/repositories/IRentalRepository";
 import { Rental } from "../entities/Rental";
 import { Repository, getRepository } from "typeorm";
 
 
 
-class RentalsRepository implements IRentalsRepositorys {
+class RentalsRepository implements IRentalsRepository {
   private repository: Repository<Rental>
 
   constructor() {
