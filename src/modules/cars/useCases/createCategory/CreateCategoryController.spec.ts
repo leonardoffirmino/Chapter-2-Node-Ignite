@@ -35,7 +35,7 @@ describe("Create Category Controller", () => {
 
   it("should be able to create a new category", async () => {
 
-    const responseToken = await request(app).post("/categories").send({
+    const responseToken = await request(app).post("/sessions").send({
       email: "admin@rentx.com.br",
       password: "admin"
     });
